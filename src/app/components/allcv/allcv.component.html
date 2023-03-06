@@ -1,0 +1,285 @@
+<div class="container content-overlay mt-5 mb-md-0 py-5">
+    <app-menu [minititle]="minititle"></app-menu>
+    <div class="d-flex align-items-center justify-content-between py-4 mt-3 mb-2">
+        <h1 class="h3 mb-0">My resumes</h1><a class="fw-bold text-decoration-none" href="#"><i
+                class="fi-trash me-2"></i><span class="align-middle">Delete all</span></a>
+    </div>
+    <div class="row">
+        <!-- Sidebar-->
+        <div class="col-md-3 mb-4 pb-3 pb-md-0">
+            <div style="max-width: 13rem;">
+                <ul class="list-unstyled fs-sm pb-1 pb-md-3">
+                    <li><a class="nav-link fw-normal d-flex align-items-center px-0 py-1" href="#"><i
+                                class="fi-file opacity-70 me-2"></i><span>cvs</span><span
+                                class="text-muted ms-auto">({{allcv?.length}})</span></a></li>
+                    <li><a class="nav-link fw-normal d-flex align-items-center px-0 py-1" href="#"><i
+                                class="fi-file-clean opacity-70 me-2"></i><span>En draft</span><span
+                                class="text-muted ms-auto">({{draft}})</span></a></li>
+                    <li><a class="nav-link fw-normal d-flex align-items-center px-0 py-1" href="#"><i
+                                class="fi-archive opacity-70 me-2"></i><span>active</span><span
+                                class="text-muted ms-auto">({{active}})</span></a></li>
+                </ul><a class="btn btn-primary rounded-pill w-100" href="job-board-post-resume-1.html"><i
+                        class="fi-plus fs-sm me-2"></i>see more jobs</a>
+            </div>
+        </div>
+       
+                                              
+
+        <!-- List of resumes-->
+        <div class="col-md-9">
+            <!-- Item-->
+            <div class="card bg-secondary card-hover mb-2" *ngFor="let p of allcv">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between" >
+                        <div class="d-flex align-items-start"><img class="d-none d-sm-block"
+                                src="{{this.authService.host+'/job/api/profilphoto/'+p?.user?.userid}}" width="100"
+                                alt="Resume picture">
+                            <div class="ps-sm-3">
+                                <h3 class="h6 card-title pb-4 " *ngIf="p.publiccv==1">
+                                    <a
+                                        class=" text-decoration-none"
+                                        >Cv {{p.cvid}}</a></h3>
+
+                                 <h3 class="h6 card-title pb-4 " *ngIf="p.publiccv==0">
+                                    <a class=" ">Draft Cv {{p.cvid}}</a></h3>
+                               <!--  <div class="fs-sm">
+                                    <div class="text-nowrap mb-2"><i class="fi-map-pin text-muted me-1">
+                                        </i>{{p.job.localisation}}</div>
+                                    <div class="text-nowrap"><i
+                                            class="fi-cash fs-base text-muted me-1"></i>{{p.job.minsalary}} DT -
+                                        {{p.job.maxsalary}} DT</div>
+                                </div>  -->
+                            </div>
+                        </div>
+                        <div class="d-flex flex-column align-items-end justify-content-between">
+                            <div class="dropdown position-relative zindex-10 mb-3">
+                              
+                               
+                            </div>
+                            <div class="btn-group" role="group" aria-label="Outline  button group rounded-pill"
+                                *ngIf="p.publiccv==1">
+                                <a class="btn btn-success rounded-pill rounded-end-0 ps-4 pe-3" href="#signin-modal" data-bs-toggle="modal"
+                                    data-bs-dismiss="modal" (click)="getbyid(p.cvid)">Public</a>
+                              
+                            </div>
+                            <div class="btn-group" role="group" aria-label="Outline  button group rounded-pill"
+                                *ngIf="p.publiccv==0">
+                                <a class="btn btn-warning rounded-pill rounded-end-0 ps-4 pe-3" href="#signin-modal" data-bs-toggle="modal"
+                                    data-bs-dismiss="modal" (click)="getbyid(p.cvid)">Draft</a>
+                            
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="modal fade " id="signin-modal" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered" style="max-width: 950px;">
+        <div class="modal-content">
+            <div class="modal-body px-0 py-2 py-sm-0">
+                <button class="btn-close position-absolute top-0 end-0 mt-3 me-3" type="button"
+                    data-bs-dismiss="modal"></button>
+                    <form action="">
+                        <input hidden type="text" [(ngModel)]="activecv.cvid" name="cvid" class="form-control">
+                    <div class="text-center mt-5">
+                       <button class="btn btn-success" *ngIf="activecv?.publiccv==1" (click)="editetat(activecv?.cvid)">Public</button>
+                        <button class="btn btn-warning"*ngIf="activecv?.publiccv==0" (click)="editetat(activecv?.cvid)">Draft</button>
+                    </div>
+                    </form>
+                <div class="row mx-0 align-items-center mt-5">
+                    <article class="resume-wrapper text-center position-relative" id="contentToConvert">
+                        <div class="resume-wrapper-inner mx-auto text-start bg-white shadow-lg">
+                            <header class="resume-header pt-4 pt-md-0">
+                                <div class="row">
+                                    <div class="col-block col-md-auto resume-picture-holder text-center text-md-start">
+                                        <img class="picture" src="{{this.authService.host+'/job/api/profilphoto/'+activecv?.user?.userid}}"
+                                            alt="" style="width: 175px;">
+                                    </div><!--//col-->
+                                    <div class="col">
+                                        <div class="row p-4 justify-content-center justify-content-md-between">
+                                            <div class="primary-info col-auto">
+                                                <h1 class="name mt-0 mb-1 text-white text-uppercase text-uppercase">{{activecv?.nom}}
+                                                    {{activecv?.prenom}}</h1>
+                                                <div class="title mb-3">{{activecv?.poste}}</div>
+                                                <ul class="list-unstyled">
+                                                    <li class="mb-2"><a class="text-link" href="#"><i class="far fa-envelope fa-fw me-2"
+                                                                data-fa-transform="grow-3"></i>{{activecv?.email}}</a></li>
+                                                    <li><a class="text-link" href="#"><i class="fas fa-mobile-alt fa-fw me-2"
+                                                                data-fa-transform="grow-6"></i>{{activecv?.phone}}</a></li>
+                                                </ul>
+                                            </div><!--//primary-info-->
+                                            <div class="secondary-info col-auto mt-2">
+                                                <ul class="resume-social list-unstyled">
+                                                    <li class="mb-3"><a class="text-link"
+                                                            href="https://www.linkedin.com/in/{{activecv?.linkedin}}" target="_blank"><span
+                                                                class="fa-container text-center me-2"><i
+                                                                    class="fab fa-linkedin-in fa-fw"></i></span>linkedin.com/in/{{activecv?.linkedin}}</a>
+                                                    </li>
+                                                    <li class="mb-3"><a class="text-link"
+                                                            href="https://www.github.com/{{activecv?.website}}"><span
+                                                                class="fa-container text-center me-2"><i
+                                                                    class="fab fa-github-alt fa-fw"></i></span>github.com/{{activecv?.github}}</a>
+                                                    </li>
+                    
+                                                    <li><a class="text-link" href="https://{{activecv?.website}}"><span
+                                                                class="fa-container text-center me-2"><i
+                                                                    class="fas fa-globe"></i></span>https://{{activecv?.website}}</a></li>
+                                                </ul>
+                                            </div><!--//secondary-info-->
+                                        </div><!--//row-->
+                    
+                                    </div><!--//col-->
+                                </div><!--//row-->
+                            </header>
+                            <div class="resume-body p-5">
+                                <section class="resume-section summary-section mb-5">
+                                    <h2 class="resume-section-title text-uppercase font-weight-bold pb-3 mb-3">About me</h2>
+                                    <div class="resume-section-content">
+                                        <p class="mb-0"> {{activecv?.description}} </p>
+                                    </div>
+                                </section><!--//summary-section-->
+                                <div class="row">
+                                    <div class="col-lg-9">
+                                        <section class="resume-section experience-section mb-5">
+                                            <h2 class="resume-section-title text-uppercase font-weight-bold pb-3 mb-3">Work Experience</h2>
+                                            <div class="resume-section-content">
+                                                <div class="resume-timeline position-relative">
+                    
+                                                    <article class="resume-timeline-item position-relative pb-5"
+                                                        *ngFor="let exp of activecv?.experiences">
+                    
+                                                        <div class="resume-timeline-item-header mb-2">
+                                                            <div class="d-flex flex-column flex-md-row">
+                                                                <h3 class="resume-position-title font-weight-bold mb-1">{{exp?.postTitle}}
+                                                                </h3>
+                                                                <div class=" ms-auto badge rounded-pill bg-info ms-1">
+                                                                    {{exp?.enterpriseTitle.toUpperCase()}}</div>
+                                                            </div><!--//row-->
+                                                            <div class="resume-position-time">{{exp?.datedebutExp | date:'MMM d, y'}} -
+                                                                {{exp?.datefinExp| date:'MMM d, y'}}</div>
+                                                        </div><!--//resume-timeline-item-header-->
+                                                        <div class="resume-timeline-item-desc">
+                                                            <p>{{exp?.description}}</p>
+                    
+                    
+                                                        </div><!--//resume-timeline-item-desc-->
+                    
+                                                    </article><!--//resume-timeline-item-->
+                    
+                    
+                    
+                    
+                                                </div><!--//resume-timeline-->
+                    
+                    
+                    
+                    
+                    
+                    
+                                            </div>
+                                        </section><!--//experience-section-->
+                    
+                                        <section class="resume-section experience-section mb-5">
+                                            <h2 class="resume-section-title text-uppercase font-weight-bold pb-3 mb-3">Diplome et Formation
+                                            </h2>
+                                            <div class="resume-section-content">
+                                                <div class="resume-timeline position-relative">
+                    
+                                                    <article class="resume-timeline-item position-relative pb-2"
+                                                        *ngFor="let exp of activecv?.educations">
+                    
+                                                        <div class="resume-timeline-item-header mb-2">
+                                                            <div class="d-flex flex-column flex-md-row">
+                                                                <h3 class="resume-position-title font-weight-bold mb-1">{{exp?.diplome}}
+                                                                </h3>
+                    
+                                                            </div><!--//row-->
+                                                            <div class="resume-position-time">De {{exp?.datedebutEtud | date:'MMM d, y'}} à
+                                                                {{exp?.datefinEtud|
+                                                                date:'MMM d, y'}} - <label
+                                                                    class="resume-company-name ms-auto">{{exp?.universite}}</label></div>
+                                                        </div><!--//resume-timeline-item-header-->
+                                                        <div class="resume-timeline-item-desc">
+                                                            <p></p>
+                    
+                    
+                                                        </div><!--//resume-timeline-item-desc-->
+                    
+                                                    </article><!--//resume-timeline-item-->
+                    
+                    
+                    
+                    
+                                                </div><!--//resume-timeline-->
+                    
+                    
+                    
+                    
+                    
+                    
+                                            </div>
+                                        </section><!--//experience-section-->
+                    
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <section class="resume-section skills-section mb-5">
+                                            <h2 class="resume-section-title text-uppercase font-weight-bold pb-3 mb-3">Skills &amp; Tools
+                                            </h2>
+                                            <div class="resume-section-content">
+                    
+                    
+                    
+                    
+                                                <div class="resume-skill-item">
+                    
+                                                    <ul class="list-inline" *ngIf="skills?.length > 0">
+                                                        <li class="list-inline-item" *ngFor="let skill of skills">
+                                                            <span class="badge bg-success">{{ skill }}</span>
+                                                        </li>
+                                                    </ul>
+                    
+                    
+                                                </div><!--//resume-skill-item-->
+                                            </div><!--resume-section-content-->
+                                        </section><!--//skills-section-->
+                    
+                    
+                                        <section class="resume-section language-section mb-5">
+                                            <h2 class="resume-section-title text-uppercase font-weight-bold pb-3 mb-3">Language</h2>
+                                            <div class="resume-section-content">
+                                                <ul class="list-unstyled resume-lang-list">
+                                                    <li class="mb-2" *ngFor="let lang of languages"><span
+                                                            class="resume-lang-name font-weight-bold">{{lang}}</span></li>
+                    
+                                                </ul>
+                                            </div>
+                                        </section><!--//language-section-->
+                                        <section class="resume-section interests-section mb-5">
+                                            <h2 class="resume-section-title text-uppercase font-weight-bold pb-3 mb-3">Interests</h2>
+                                            <div class="resume-section-content">
+                                                <ul class="list-inline">
+                                                    <li class="list-inline-item" *ngFor="let i of interest"><span
+                                                            class="badge bg-warning">{{i}}</span></li>
+                    
+                    
+                                                </ul>
+                                            </div>
+                                        </section><!--//interests-section-->
+                    
+                                    </div>
+                                </div><!--//row-->
+                            </div><!--//resume-body-->
+                    
+                    
+                        </div>
+                    </article>
+                  
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

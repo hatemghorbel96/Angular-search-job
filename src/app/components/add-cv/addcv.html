@@ -1,0 +1,172 @@
+<section class="position-relative bg-white rounded-xxl-4 zindex-5 gg" style="margin-top: -30px;">
+    <div class="container pt-4 pb-5 mb-md-4">
+        <br><br><br><br>
+        <div class="bg-light rounded-3 py-4 px-md-4 mb-3">
+            <form [formGroup]="Empregister" (ngSubmit)="HandleSubmit()">
+                <mat-stepper [linear]="isLinear" #stepper>
+
+                    <mat-step [stepControl]="Basicform" class="bg-light rounded-3 py-4 px-md-4 mb-3">
+                        <div formGroupName="basic" class="bg-light rounded-3 p-4 p-md-5 mb-3">
+                            <ng-template matStepLabel class="step-label">Fill Basic Details</ng-template>
+
+                            <!-- Form group pill shape: Multiple controls (Responsive) -->
+                          
+                            <mat-form-field appearance="fill">
+                                <mat-label>nom</mat-label>
+                                <input matInput placeholder="nom" formControlName="nom">
+                            </mat-form-field>
+                            <mat-form-field appearance="fill">
+                                <mat-label>prenom</mat-label>
+                                <input matInput placeholder="prenom" formControlName="prenom">
+                            </mat-form-field>
+                            <mat-form-field appearance="fill">
+                                <mat-label>email</mat-label>
+                                <input matInput placeholder="email" formControlName="email">
+                            </mat-form-field>
+                            <mat-form-field appearance="fill">
+                                <mat-label>phone</mat-label>
+                                <input matInput placeholder="phone" formControlName="phone">
+                            </mat-form-field>
+                            <mat-form-field appearance="fill">
+                                <mat-label>address</mat-label>
+                                <input matInput placeholder="address" formControlName="address">
+                            </mat-form-field>
+                            <mat-form-field appearance="fill">
+                                <mat-label>linkedin</mat-label>
+                                <input matInput placeholder="linkedin" formControlName="linkedin">
+                            </mat-form-field>
+                            <mat-form-field appearance="fill">
+                                <mat-label>github</mat-label>
+                                <input matInput placeholder="github" formControlName="github">
+                            </mat-form-field>
+                            <mat-form-field appearance="fill">
+                                <mat-label>birthday</mat-label>
+                                <input matInput [matDatepicker]="picker" placeholder="birthday"
+                                    formControlName="birthday">
+                                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                <mat-datepicker #picker></mat-datepicker>
+                            </mat-form-field>
+
+
+                            <div>
+                                <!-- <button mat-raised-button color="primary" matStepperNext>Next</button> -->
+                                <button mat-raised-button color="primary" type="button"
+                                    (click)="stepper.next()">Next</button>
+
+                            </div>
+                        </div>
+                    </mat-step>
+                    <mat-step [stepControl]="eduform" label="Fill out education info">
+                        <div formGroupName="education">
+                            <mat-form-field appearance="fill">
+                                <mat-label>diplome</mat-label>
+                                <input matInput formControlName="diplome" placeholder="diplome" required>
+                            </mat-form-field>
+                            <mat-form-field appearance="fill">
+                                <mat-label>universite</mat-label>
+                                <input matInput formControlName="universite" placeholder="universite" required>
+                            </mat-form-field>
+                            <mat-form-field>
+                                <mat-label>Start Date</mat-label>
+                                <input matInput [matDatepicker]="startDatePicker" formControlName="datedebutEtud">
+                                <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
+                                <mat-datepicker #startDatePicker></mat-datepicker>
+                            </mat-form-field>
+                            <mat-form-field>
+                                <mat-label>End Date</mat-label>
+                                <input matInput [matDatepicker]="endDatePicker" formControlName="datefinEtud">
+                                <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
+                                <mat-datepicker #endDatePicker></mat-datepicker>
+                            </mat-form-field>
+                            <div>
+                                <button mat-raised-button color="primary" matStepperPrevious>Back</button> |
+                                <!--  <button mat-raised-button color="primary" matStepperNext>Next</button> -->
+                                <button mat-raised-button color="primary" type="button"
+                                    (click)="stepper.next()">Next</button>
+
+                            </div>
+                        </div>
+                    </mat-step>
+                    <mat-step [stepControl]="expform" label="Fill out experience">
+
+                        <div formArrayName="exp">
+
+                            <div *ngFor="let exp of expform.controls; let i = index">
+
+
+                                <div [formGroupName]="i">
+                                    <p>Experience {{i+1}}</p>
+                                    <mat-form-field appearance="fill">
+                                        <mat-label>Title</mat-label>
+                                        <input matInput formControlName="postTitle" placeholder="Title">
+                                    </mat-form-field>
+                                    <mat-form-field appearance="fill">
+                                        <mat-label>Company</mat-label>
+                                        <input matInput formControlName="enterpriseTitle" placeholder="Company">
+                                    </mat-form-field>
+                                    <mat-form-field appearance="fill">
+                                        <mat-label>description</mat-label>
+                                        <input matInput formControlName="description" placeholder="Location">
+                                    </mat-form-field>
+                                    <mat-form-field appearance="fill">
+                                        <mat-label>From</mat-label>
+                                        <input matInput [matDatepicker]="fromPicker" formControlName="datedebutExp">
+                                        <mat-datepicker-toggle matSuffix [for]="fromPicker"></mat-datepicker-toggle>
+                                        <mat-datepicker #fromPicker></mat-datepicker>
+                                    </mat-form-field>
+                                    <mat-form-field appearance="fill">
+                                        <mat-label>To</mat-label>
+                                        <input matInput [matDatepicker]="toPicker" formControlName="datefinExp">
+                                        <mat-datepicker-toggle matSuffix [for]="toPicker"></mat-datepicker-toggle>
+                                        <mat-datepicker #toPicker></mat-datepicker>
+                                    </mat-form-field>
+                                </div>
+                                <button mat-raised-button color="primary" (click)="removeExperience(i)">Remove
+                                    Experience</button>
+                            </div>
+                        </div>
+
+                        <button mat-raised-button (click)="addExperience()" class="mb-3 mt-3">Add Experience</button>
+
+                        <div>
+                            <button mat-raised-button color="primary" matStepperPrevious>Back</button> |
+                            <!-- <button mat-raised-button color="primary" matStepperNext>Next</button> -->
+                            <button mat-raised-button color="primary" type="button"
+                                (click)="stepper.next()">Next</button>
+
+                        </div>
+
+                    </mat-step>
+
+                    <mat-step [stepControl]="skillsform" label="Fill out skills">
+                        <div formGroupName="skills">
+                            <mat-form-field>
+                                <mat-label>Skills</mat-label>
+                                <mat-chip-list #skills>
+                                    <mat-chip *ngFor="let skill of skillsArray" [selectable]="true" [removable]="true"
+                                        (removed)="remove(skill)">
+                                        {{skill}}
+                                        <mat-icon matChipRemove *ngIf="true">x</mat-icon>
+                                    </mat-chip>
+                                    <input placeholder="New skill" [matChipInputFor]="skills"
+                                        [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                                        (matChipInputTokenEnd)="add($event)" />
+                                </mat-chip-list>
+                            </mat-form-field>
+
+
+
+
+                            <div>
+                                <button mat-raised-button color="primary" matStepperPrevious>Back</button> |
+                                <button mat-raised-button color="accent"
+                                    [disabled]="Empregister.invalid">Submit</button>
+                            </div>
+                        </div>
+                    </mat-step>
+
+                </mat-stepper>
+            </form>
+        </div>
+    </div>
+</section>

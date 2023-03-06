@@ -1,0 +1,370 @@
+<section class="bg-dark pt-5">
+    <div class="container ">
+        <h1 class="text-light pt-1 pt-md-3 mb-4">Find jobs</h1>
+        <div class="btn-group" role="group" aria-label="Solid button group">
+         <button type="button" class="btn btn-success align-left" (click)="sumilaire(1)">Search similar to your CV</button>
+       
+         <button class="btn btn-danger btn-sm"(click)="annuler()" >x</button>
+        </div>
+        <div class="form-group form-group-light d-block rounded-xl-pill mt-n3 mt-md-4 mt-xl-5 mb-md-4">
+            <div class="row align-items-center g-0 ms-n2">
+                <div class="col-md-5 col-xl-3">
+                    <div class="input-group input-group-lg border-end-md border-light"><span
+                            class="input-group-text text-light rounded-pill opacity-50 ps-3"><i
+                                class="fi-search"></i></span>
+                        <input class="form-control" type="text" placeholder="Search site..." (keyup)="ModifyFilterdfiltersSearch($any($event.target).value)">
+                    </div>
+                </div>
+                <hr class="hr-light d-md-none my-2">
+                <div class="col-md-7 col-xl-4 d-sm-flex">
+                    <div class="dropdown w-sm-50 border-end-sm border-light" data-bs-toggle="select">
+                        
+                      <!--   bel select avancé -->
+                       <!--  <select class="btn btn-link dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                            (change)="ModifyFilterdlocation($any($event.target).value)">
+                            <option class="form-select" [disabled]="filterslocation.length === 0" [selected]="filterslocation.length === 0">
+                               
+                                    <ng-container *ngIf="filterslocation.length === 0">Location</ng-container>
+                                    <ng-container *ngIf="filterslocation.length > 0">{{filterslocation[0]}}</ng-container>
+                               
+                            </option>
+                            <option *ngFor="let s of locations.values()" [value]="s" >
+                              {{s}}
+                            </option>
+                            <option value="">Reset</option>
+                        </select> -->
+
+                        <!--   bel ul li -->
+                        
+                    <button class="btn btn-link dropdown-toggle" type="button" data-bs-toggle="dropdown"><i
+                            class="fi-map-pin me-2"></i><span class="dropdown-toggle-label">{{selectedlocation}}</span></button>
+                    <input type="hidden">
+                    <ul class="dropdown-menu dropdown-menu-dark my-3">
+                        <li ><a class="dropdown-item" (click)="ModifyFilterdlocationn(s)" *ngFor="let s of locations.values()"><span class="dropdown-item-label">{{s}}</span></a></li>
+                        <li (click)="resetFilters()"><a class="dropdown-item"> <label for="" class="text-white ">Reset</label></a></li>
+                    </ul>
+                    </div>
+
+
+            <hr class="hr-light d-sm-none my-2">
+            <div class="dropdown w-sm-50 border-end-xl border-light" data-bs-toggle="select">
+                <button class="btn btn-link dropdown-toggle" type="button" data-bs-toggle="dropdown"><i
+                        class="fi-geo me-2"></i><span class="dropdown-toggle-label">{{selectedFilterType}}</span></button>
+                <input type="hidden">
+                <ul class="dropdown-menu dropdown-menu-dark my-3">
+  
+                    <li (click)="ModifyFilterdtype(s)" *ngFor="let s of filtersTypeTable.values()"><a class="dropdown-item" ><span class="dropdown-item-label">{{s}}</span></a></li>
+                    <li (click)="resetFiltersType()"><a class="dropdown-item">Reset</a></li>
+
+                </ul>
+            </div>
+
+                </div>
+                
+                <hr class="hr-light d-xl-none mt-2 mb-3">
+                <div class="col-xl-5 d-sm-flex align-items-center">
+                    <div class="d-flex align-items-center w-100 ms-xl-1 ps-3">
+                       <i class="fi-cash fs-lg me-2"></i>
+                       
+                     
+                    <ng5-slider class="ng5-slider" [(value)]="valuemin" [(highValue)]="valuemax" [options]="options" (valueChange)="handleSearchprice()"></ng5-slider>
+
+                      
+                    </div>
+                   <!--  <button class="btn btn-primary btn-lg w-100 w-sm-50 w-lg-auto rounded-pill mt-4 mt-sm-0"
+                        type="button">Find
+                        jobs</button> -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Search params (dropdowns)-->
+        <div class="d-sm-flex justify-content-between pt-2 pb-1 pb-md-3 pb-lg-4">
+            
+        </div>
+    </div>
+</section>
+<!-- Page content-->
+
+<section class="position-relative bg-white rounded-xxl-4 zindex-5" style="margin-top: -30px;">
+    <div class="container pt-4 pb-5 mb-md-4">
+        <!-- Breadcrumb-->
+        <nav class="pb-4 my-2" aria-label="Breadcrumb">
+            <ol class="breadcrumb m-0">
+                <li class="breadcrumb-item"><a href="job-board-home-v1.html">Home</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Find jobs</li>
+            </ol>
+        </nav>
+        <div class="row">
+            <!-- List of jobs-->
+            <div class="col-lg-5 col-md-6 position-relative mb-4 mb-md-0" style="z-index: 1025;">
+                <!-- Sorting-->
+                <div class="d-sm-flex align-items-center justify-content-between pb-4 mb-sm-2">
+                    <div class="d-flex align-items-center">
+                        <label class="fs-sm me-2 pe-1 text-nowrap" for="sorting"><i
+                                class="fi-arrows-sort mt-n1 me-2"></i>Publication date:</label>
+                       <!--  <select class="form-select form-select-sm" id="sorting">
+                            <option (click)="filterMostRecent()">Most recent</option>
+                            <option (click)="days = 5">5 days</option>
+                            <option (click)="days = 15">15 days</option>
+                            <option (click)="days = 30">1 month</option>
+                            <option  (click)="reset()">Reset</option>
+                        </select> -->
+                        <div class="d-flex flex-column flex-sm-row flex-wrap">
+                            <div class="dropdown " data-bs-toggle="select">
+                                <button class="btn btn-translucent-dark btn-sm dropdown-toggle fs-base fw-normal w-100 text-start"
+                                    type="button" data-bs-toggle="dropdown"><span class="dropdown-toggle-label">{{selectedDate}}</span></button>
+                                <ul class="dropdown-menu my-1">
+                                    <li><a class="dropdown-item" (click)="filterMostRecent()"><span class="dropdown-item-label">Most
+                                                recent</span></a></li>
+                                    <li><a class="dropdown-item" (click)="days = 5"><span class="dropdown-item-label">5 days</span></a></li>
+                                    <li><a class="dropdown-item" (click)="days = 15"><span class="dropdown-item-label">15 days</span></a></li>
+                                    <li><a class="dropdown-item" (click)="days = 30"><span class="dropdown-item-label">1 month</span></a></li>
+                                    <li><a class="dropdown-item" (click)="reset()"><span class="dropdown-item-label">Reset</span></a></li>
+                        
+                                </ul>
+                        
+                            </div>
+                        
+                        </div>
+                       
+
+                    </div>
+                    <div class="text-muted fs-sm text-nowrap"><i class="fi-briefcase fs-base mt-n1 me-2"></i>
+                        <label *ngIf="getJobsToDisplay()">
+                            {{getJobsToDisplay().length}} <label for="" *ngIf="getJobsToDisplay().length==1">job</label>
+                            <label for="" *ngIf="getJobsToDisplay().length>1">jobs</label>
+                        </label>
+
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="select-input" class="form-label">Item par page</label> &nbsp;
+                <select [(ngModel)]="itemsPerPage"class="select-js" id="select-input">
+                
+                 
+                    <option [value]="3">3</option>
+                    <option [value]="5">5</option>
+                    <option [value]="10">10</option>
+                </select>
+                </div>
+                <div class="card bg-secondary card-hover mb-2" *ngFor="let j of getJobsToDisplay() | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage}">
+                  
+
+                    <div class="card-body" (click)="(getbyid(j.jobid))">
+                        <div class="d-flex justify-content-between align-items-start mb-2">
+                            <div class="d-flex align-items-center"><img class="me-2" class="avatar-img rounded-2"
+                                    src="{{this.authService.host+'/job/api/profilphoto/'+j.user.userid}}" width="50"
+                                    alt="img"><span class="fs-sm text-dark opacity-80 px-1">{{j.user.username}}</span>
+                                <span class="badge bg-faded-danger rounded-pill fs-sm ms-2">{{j.jobtype}}</span>
+                            </div>
+
+                            <div class="dropdown content-overlay">
+                             
+                                
+                                <ng-container *ngIf="j.favorits.length">
+                                    <ng-container *ngIf="loggedUserfavorit(j) then first; else second">
+                                    </ng-container>
+                                
+                                    <ng-template #first>
+                                        <button class="btn btn-icon btn-light btn-xs text-primary rounded-circle shadow-sm content-overlay"
+                                            (click)="annulefavorit(j.jobid)"><i class="fi-heart-filled">
+                                            </i> </button>
+                                    </ng-template>
+                                
+                                    <ng-template #second>
+                                        <button class="btn btn-icon btn-light btn-xs text-primary rounded-circle shadow-sm content-overlay"
+                                            style="border: none; background: none;" (click)="favoritadd(j.jobid)"><i class="fi-heart"> </i> </button>
+                                    </ng-template>
+                                </ng-container>
+                                
+                                
+                                
+                                <ng-container *ngIf="!j.favorits.length">
+                                    <button class="btn btn-icon btn-light btn-xs text-primary rounded-circle shadow-sm content-overlay"
+                                        (click)="favoritadd(j.jobid)"><i class="fi-heart"> </i> </button>
+                                </ng-container>
+                               
+                            </div>
+                        </div>
+                        <h3 class="h6 card-title pt-1 mb-3"><a
+                                class="text-nav stretched-link text-decoration-none">{{j.title}}</a></h3>
+                              
+                        <div class="fs-sm"><span class="text-nowrap me-3"><i class="fi-map-pin text-muted me-1">
+                                </i>{{j.localisation}}</span><span class="text-nowrap me-3"><i
+                                    class="fi-cash fs-base text-muted me-1"></i>{{j.minsalary}} DT - {{j.maxsalary}}
+                                DT</span></div>
+                    </div>
+                </div>
+               
+                   
+                    <div class="alert alert-primary" role="alert" *ngIf="getJobsToDisplay().length ==0">
+                        No jobs available
+                    </div>
+
+              
+                <ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="ball-fussion" [fullScreen]="false">
+                    <p style="color: white"> Loading... </p>
+                </ngx-spinner>
+                <!-- Item-->
+
+                <!-- Pagination-->
+                <nav class="pt-4 pb-2" aria-label="Blog pagination">
+                    <ul class="pagination mb-0">
+                    <pagination-controls (pageChange)="currentPage = $event" [totalItems]="jobs.length"
+                        [boundaryLinks]="true"></pagination-controls>
+
+                   <!--  <ngx-pagination [totalItems]="jobs.length" [(ngModel)]="currentPage" [maxSize]="5" [boundaryLinks]="true"></ngx-pagination> -->
+                    </ul>
+                </nav>
+            </div>
+
+           
+            <!-- Sticky sidebar-->
+            <aside class="col-lg-7 col-md-6" style="margin-top: -6rem;" *ngIf="click==2">
+                <div class="sticky-top" style="padding-top: 6rem;">
+                    <div class="card shadow-sm p-lg-3 mb-3 mb-lg-0">
+                        <div class="card-body p-lg-4">
+
+                            <div class="row">
+                                <!-- Signle job content-->
+                                <div class="col-lg-12 position-relative pe-lg-5 mb-5 mb-lg-0" style="z-index: 1025;">
+                                    <div class="d-flex justify-content-between mb-2">
+                                        <h2 class="h3 mb-0">{{clickedjob?.title}}</h2>
+                                        <div class="text-end"><span
+                                                class="badge bg-faded-accent rounded-pill fs-sm mb-2">{{clickedjob?.jobtype}}</span>
+                                            <div class="fs-sm text-muted">{{clickedjob?.dateCreated | dateAsAgo}}</div>
+                                        </div>
+                                    </div>
+                                    <ul class="list-unstyled fs-sm mb-4">
+                                        <li class="mb-2"><a class="d-flex align-items-center text-decoration-none"
+                                                href="{{clickedjob?.website}}"><i
+                                                    class="fi-external-link me-2"></i><span
+                                                    class="text-decoration-underline">{{clickedjob?.website}}</span></a>
+                                        </li>
+                                        <li class="d-flex align-items-center mb-2"><i
+                                                class="fi-map-pin text-muted me-2"></i><span>{{clickedjob?.localisation}}</span>
+                                        </li>
+                                        <li class="d-flex align-items-center mb-2"><i
+                                                class="fi-cash fs-base text-muted me-2"></i><span>{{clickedjob?.minsalary}}
+                                                DT - {{clickedjob?.maxsalary}} DT</span></li>
+                                        <li class="d-flex align-items-center mb-2"><i
+                                                class="fi-phone text-muted me-2"></i><span class="me-2">Bessie
+                                                Cooper, HR Manager</span><a href="#">{{clickedjob?.user.username}}</a>
+                                        </li>
+                                        <li class="d-flex align-items-center mb-2"><i
+                                                class="fi-clock text-muted me-2"></i><span class="me-2">Full-time</span>
+                                        </li>
+                                    </ul>
+                                    <hr class="mb-4">
+                                    <h3 class="h6">Description:</h3>
+                                    <p
+                                        [innerHTML]="sanitizer.bypassSecurityTrustHtml(clickedjob.description.toString())">
+                                        .</p>
+
+                                    <h3 class="h6 pt-2">Requirements:</h3>
+                                    <ul class="list-unstyled">
+                                        <label
+                                            [innerHTML]="sanitizer.bypassSecurityTrustHtml(clickedjob.requirements.toString())">
+                                            .</label>
+                                    </ul>
+
+                                    <p class="pt-2 mb-1">Please, send your CV marked “Partnership Manager” in the
+                                        subject via e-mail:</p><a class="nav-link-muted fw-bold"
+                                        href="mailto:contact@example.com">{{clickedjob.user.email}}</a>
+                                    <hr class="my-4">
+                                    <div class="btn-group btn-group-lg">
+                                        <form action="">
+                                           
+                                       
+                                       
+                                            <a class="btn btn-primary rounded-pill rounded-end-0 ps-4 pe-3" href="#signin-modal" data-bs-toggle="modal" data-bs-dismiss="modal"  >Postuler</a>
+
+                                            <!-- Sign In Modal-->
+                                          
+                                            <!-- Sign Up Modal-->
+                                       
+                                       
+                                        </form>
+                                            
+                                        <div class="position-relative border-start border-light zindex-5"
+                                            style="margin-left: -1px;"></div>
+                                        <button class="btn btn-primary rounded-pill rounded-start-0 px-3"
+                                            type="button"><i class="fi-heart me-1"></i></button>
+                                    </div>
+                                </div>
+                                <!-- Sticky sidebar-->
+
+                            </div>
+
+
+                        </div>
+                    </div>
+
+                </div>
+                
+            </aside>
+            <aside class="col-lg-7 col-md-6" style="margin-top: -6rem;" *ngIf="click==1">
+                <div class="sticky-top" style="padding-top: 6rem;">
+                    <div class="card h-100">
+                        <div class="d-sm-flex align-items-center">
+                            <div class="pt-4 ps-sm-4 py-sm-4 p-lg-5 flex-shrink-0"><img class="d-block mx-auto"
+                                    src="assets/img/pricing/icon-4.svg" width="86" alt="Icon"></div>
+                            <div class="card-body text-center text-sm-start">
+                                <h2 class="h5 mb-2">No Job Selected</h2>
+                                <p class="mb-sm-4">pick a job to reach out more details.
+                                    </p><!-- <a class="fw-bold text-decoration-none py-1"
+                                    href="job-board-catalog.html">Find jobs<i
+                                        class="fi-chevron-right fs-xs ms-2"></i></a> -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+       
+        </aside>
+    </div>
+    </div>
+
+</section>
+
+<div class="modal fade " id="signin-modal" aria-hidden="true" aria-labelledby="exampleModalToggleLabel"
+    tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered" style="max-width: 950px;">
+        <div class="modal-content">
+            <div class="modal-body px-0 py-2 py-sm-0">
+                <button class="btn-close position-absolute top-0 end-0 mt-3 me-3" type="button"
+                    data-bs-dismiss="modal"></button>
+                <div class="row mx-0 align-items-center">
+                    <div class="col-md-6 border-end-md p-4 p-sm-5">
+                        <h2 class="h3 mb-4 mb-sm-5">Hey there!<br>Welcome to {{clickedjob?.user?.username}}.</h2><img class="d-block mx-auto"
+                             src="{{this.authService.host+'/job/api/profilphoto/'+clickedjob?.user?.userid}}" width="344" alt="Illustartion">
+                        <div class="mt-4 mt-sm-5">For any question visit our website <a href="#{{clickedjob.website}}" data-bs-toggle="modal" 
+                                data-bs-dismiss="modal">{{clickedjob.website}}</a></div>
+                    </div>
+                    <div class="col-md-6 px-4 pt-2 pb-4 px-sm-5 pb-sm-5 pt-md-5">
+                        <!-- <div class="d-flex align-items-center py-3 mb-3">
+                            <hr class="w-100">
+                            <div class="px-3">Or</div>
+                            <hr class="w-100">
+                        </div> -->
+                        <form class="needs-validation" novalidate>
+                            <div class="mb-4">
+                          
+                                <input type="text" hidden [(ngModel)]="newpostule.postulerid" name="postulerid">
+                                <label for="textarea-input" class="form-label">Cover letter</label>
+                                <textarea class="form-control" id="textarea-input" [(ngModel)]="newpostule.description" name="description" rows="15" placeholder="write your cover letter"></textarea>
+                          
+                            </div>
+                          
+                            <button class="btn btn-primary btn-lg w-100 rounded-pill"
+                                (click)="postuler(clickedjob?.jobid)" data-bs-dismiss="modal">Apply for this
+                                job</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

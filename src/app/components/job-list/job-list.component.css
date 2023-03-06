@@ -1,0 +1,15 @@
+.ng5-slider {
+    width: 100%;
+}
+
+.ng5-slider .ng5-slider-bar {
+    background-color: blue;
+}
+ngx-loading * {
+    border-radius: 10px;
+    text-align: center
+}
+
+.pagination ::ng-deep .ngx-pagination .current {
+    background: rgb(255, 115, 0);
+}

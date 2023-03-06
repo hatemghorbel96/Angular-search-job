@@ -1,0 +1,87 @@
+
+    <!-- Breadcrumb-->
+    <nav class="mb-3 mb-md-4 pt-md-3" aria-label="Breadcrumb">
+        <ol class="breadcrumb breadcrumb-dark">
+            <li class="breadcrumb-item"><a href="job-board-home-v1.html">Home</a></li>
+            <li class="breadcrumb-item"><a href="job-board-account-profile.html">Account</a></li>
+            <li class="breadcrumb-item active" aria-current="page">{{ minititle }}</li>
+        </ol>
+    </nav>
+    <div class="bg-light shadow-sm rounded-3 p-4 p-md-5 mb-2">
+        <!-- Account header-->
+        <div class="d-flex align-items-start justify-content-between pb-4 mb-2">
+            <form>
+            <div class="d-flex align-items-start">
+                <div class="position-relative flex-shrink-0"><img class="rounded-circle" src="{{this.authService.host+'/job/api/profilphoto/'+currentUser?.userid}}"
+           
+                        width="100" alt="Annette Black">
+                    <button class="btn btn-icon btn-light btn-xs rounded-circle shadow-sm position-absolute end-0 bottom-0"
+                        type="button" data-bs-toggle="tooltip" title="Change image"><i class="fi-pencil fs-xs"></i></button>
+                </div>
+              
+                <div class="ps-3 ps-sm-4">
+                    <h3 class="h5">
+                        <input hidden type="text" [(ngModel)]="currentUser.userid" name="userid" class="form-control">
+                        <label (click)="startEditing()">
+                        <label *ngIf="!editingfirstname">{{currentUser.firstname}}</label> 
+                        <input class="border-0 w-40" style="outline: none;" *ngIf="editingfirstname" [(ngModel)]="currentUser.firstname" (blur)="stopEditing()" name="firstname">
+                        </label>
+                &nbsp;
+                        
+                     
+
+                        <label (click)="startEditinglastname()">
+                            <label *ngIf="!editinglastname">{{currentUser.lastname}}</label>
+                            <input class="border-0 w-40" style="outline: none;" *ngIf="editinglastname" [(ngModel)]="currentUser.lastname" name="lastname"
+                                (blur)="stopEditinglastname()">
+                        </label>
+                     
+                    
+                    </h3>
+                    <ul class="list-unstyled fs-sm mb-0">
+                        <li class="d-flex text-nav text-break" (click)="startEditingmail()">
+                            <i class="fi-mail opacity-60 mt-1 me-2"></i><span *ngIf="!editingmail">{{currentUser.email}}</span>
+                        <input class="border-0 w-40" style="outline: none;" *ngIf="editingmail" [(ngModel)]="currentUser.email" name="email"
+                            (blur)="stopEditingmail()" >
+                        </li>
+                     
+                    </ul>
+                </div>
+               
+                
+            </div>
+           <!--  <button type="submit" (click)="update()" class="btn btn-success mt-3">Modifer</button> -->
+         <!--    <button class="btn btn-success  p-0 d-none d-md-block"  type="submit"><i
+                    class="fi-logout mt-n1 me-2"></i>save</button> -->
+                    </form>
+        </div>
+       
+        <div class="collapse d-md-block" id="account-nav">
+            <ul class="nav nav-pills flex-column flex-md-row pt-3 pt-md-0 pb-md-4 border-bottom-md">
+            <li class="nav-item mb-md-0 me-md-2 pe-md-1">
+                <a class="nav-link" routerLink="/mycv" [ngClass]="{ 'active': isActive('/mycv') }">
+                    <i class="fi-settings mt-n1 me-2 fs-base"></i>Active CV
+                </a>
+            </li>
+            <li class="nav-item mb-md-0 me-md-2 pe-md-1">
+                <a class="nav-link" routerLink="/cvs" [ngClass]="{ 'active': isActive('/cvs') }">
+                    <i class="fi-settings mt-n1 me-2 fs-base"></i>All CV
+                </a>
+            </li>
+            <li class="nav-item mb-md-0 me-md-2 pe-md-1">
+                <a class="nav-link" routerLink="/mypostlist" [ngClass]="{ 'active': isActive('/mypostlist') }">
+                    <i class="fi-file mt-n1 me-2 fs-base"></i>my post list
+                </a>
+            </li>
+            <li class="nav-item mb-md-0 me-md-2 pe-md-1">
+                <a class="nav-link" routerLink="/saved" [ngClass]="{ 'active': isActive('/saved') }">
+                    <i class="fi-heart mt-n1 me-2 fs-base"></i>Saved Jobs
+                </a>
+            </li>
+
+
+              
+            </ul>
+        </div>
+   
+</div>

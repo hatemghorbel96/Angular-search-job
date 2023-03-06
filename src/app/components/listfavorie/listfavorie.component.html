@@ -1,0 +1,31 @@
+<div class="container content-overlay mt-5 mb-md-0 py-5">
+    <app-menu [minititle]="minititle"></app-menu>
+<div class="d-flex align-items-center justify-content-between py-4 mt-3 mb-2">
+    <h1 class="h3 mb-0">Saved jobs</h1><a class="fw-bold text-decoration-none" href="#"><i
+            class="fi-x fs-xs me-2"></i><span class="align-middle">Clear all</span></a>
+</div>
+<!-- Grid-->
+<div class="row g-2 g-md-4">
+    <!-- Item-->
+    <div class="col-md-6 col-lg-4" *ngFor="let f of fav">
+        <div class="card bg-secondary card-hover h-100">
+            <div class="card-body">
+                <div class="d-flex align-items-center mb-3"><img class="me-2" src="{{this.authService.host+'/job/api/profilphoto/'+f.job.user.userid}}"
+                        width="50" alt="IT Pro TV"><span class="fs-sm text-dark opacity-80 px-1">{{f.job.user.username}}</span><span
+                        class="badge bg-faded-info rounded-pill fs-sm ms-auto">New</span></div>
+                <h3 class="h6 card-title mb-2"><a class="text-nav stretched-link text-decoration-none"
+                        href="job-board-single.html">{{f.job.title}}</a></h3>
+                <p class="fs-sm mb-0"[innerHTML]="sanitizer.bypassSecurityTrustHtml(f.job.description.toString())"></p>
+            </div>
+            <div class="card-footer d-flex align-items-center justify-content-between border-0 pt-0">
+                <div class="fs-sm"><span class="text-nowrap me-3"><i class="fi-map-pin text-muted me-1"> </i>{{f.job.localisation}}</span><span class="text-nowrap me-3"><i
+                            class="fi-cash fs-base text-muted me-1"></i>$7,500</span></div>
+                <button class="btn btn-icon btn-light btn-xs text-primary rounded-circle shadow-sm content-overlay"
+                    type="button" data-bs-toggle="tooltip" title="Remove from saved jobs"><i
+                        class="fi-heart-filled"></i></button>
+            </div>
+        </div>
+    </div>
+ 
+</div>
+</div>

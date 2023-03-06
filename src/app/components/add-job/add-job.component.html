@@ -1,0 +1,83 @@
+<section class="position-relative bg-white rounded-xxl-4 zindex-5 gg mt-5" style="margin-top: -5px;">
+    <div class="container pt-4 pb-5 mb-md-4">
+
+    <form>
+        <div class="col-sm-2 col-md-2 col-lg-12">
+            <label hidden>ID coupon</label>
+            <input hidden type="text" [(ngModel)]="newjob.jobid" name="jobid" class="form-control">
+        </div>
+        <div class="col-sm-4 col-md-4 col-lg-12">
+            <label>job title</label>
+            <input type="text" [(ngModel)]="newjob.title" name="title" class="form-control">
+        </div>
+        <div class="col-sm-4 col-md-4 col-lg-12">
+            <label>jobtype</label>
+            <input type="text" [(ngModel)]="newjob.jobtype" name="reductjobtypeion" class="form-control">
+        </div>
+        <div class="col-sm-2 col-md-2 col-lg-12">
+            <label>min salary</label>
+            <input type="number" [(ngModel)]="newjob.minsalary" name="minsalary" class="form-control">
+        </div>
+        <div class="col-sm-2 col-md-2 col-lg-12">
+            <label>max salary</label>
+            <input type="number" [(ngModel)]="newjob.maxsalary" name="maxsalary" class="form-control">
+        </div>
+        <div class="col-sm-2 col-md-2 col-lg-12">
+            <label>experience</label>
+            <input type="text" [(ngModel)]="newjob.experience" name="experience" class="form-control">
+        </div>
+        
+        <div class="col-sm-2 col-md-2 col-lg-12 mt-3">
+           
+         <!-- <input type="text" [(ngModel)]="newjob.langue" name="langue" class="form-control"> -->
+           <!--  <select multiple [(ngModel)]="selectedLangue" name="langue" class="form-control">
+                <option *ngFor="let lang of availableLangue" [value]="lang">{{lang}}</option>
+              
+            </select> -->
+           <!--  <mat-form-field class="custom-chips" > -->
+                <mat-form-field class="form-control">
+                <mat-chip-list #chipList aria-label="Langue">
+                    <mat-chip *ngFor="let lang of availableLangue" [selectable]="true" (click)="select(lang)" [removable]="true"
+                        (removed)="remove(lang)" class="mat-standard-chip"  [ngClass]="{'selected-chip': selectedLangue.indexOf(lang) > -1}">
+                        {{lang}}
+                        <mat-icon matChipRemove *ngIf="selectedLangue.indexOf(lang) > -1" class="cancel-btn">x</mat-icon>
+                    </mat-chip>
+                    <input placeholder="Add new languages" [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                        (matChipInputTokenEnd)="add($event)" class="custom-input">
+                </mat-chip-list>
+            </mat-form-field>
+            <br><br><br>
+          
+        </div>
+        <div class="col-sm-2 col-md-2 col-lg-12">
+            <label>description</label>
+            <ckeditor [(ngModel)]="newjob.description" [editor]="editor" [config]="editorConfig" name="description" ></ckeditor>
+        </div>
+        <div class="col-sm-2 col-md-2 col-lg-12">
+            <label>requirements</label>
+            <ckeditor type="text" [(ngModel)]="newjob.requirements" [editor]="editor" [config]="editorConfig" name="requirements" ></ckeditor>
+        </div>
+        <div class="col-sm-2 col-md-2 col-lg-12">
+            <label>localisation</label>
+            <input type="text" [(ngModel)]="newjob.localisation" name="localisation" class="form-control">
+        </div>
+        <div class="col-sm-2 col-md-2 col-lg-12">
+            <label>website</label>
+            <input type="text" [(ngModel)]="newjob.website" name="website" class="form-control">
+        </div>
+        <div class="col-sm-2 col-md-2 col-lg-12">
+            <label>expire</label>
+            <input type="date" [(ngModel)]="newjob.expire" name="expire" class="form-control">
+        </div>
+
+        <div class="mt-3">
+            <button type="submit" (click)="addnewjob()" class="btn btn-success">add</button>
+
+
+
+        </div>
+    </form>
+
+
+
+</div>

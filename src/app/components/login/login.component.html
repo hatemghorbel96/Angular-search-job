@@ -1,0 +1,68 @@
+<div class="container mt-5 mb-md-4 py-5">
+
+    <!-- Page content-->
+    <!-- <div class="row justify-content-center pb-sm-2">
+        <div class="col-lg-11 col-xl-10">
+    <div class="row justify-content-md-center">
+        <div class="col-md-4">
+            <div class="alert alert-danger" *ngIf="err==1">
+                <strong>login ou mot de passe erronés..</strong>
+            </div>
+            <form>
+                <div class="form-group">
+                    <label>Nom Utilisateur :</label>
+                    <input type="text" name="username" class="form-control" [(ngModel)]="user.username">
+                </div>
+                <div class="form-group">
+                    <label>Mot de passe :</label>
+                    <input type="password" name="password" [(ngModel)]="user.password" class="form-control">
+                </div>
+                <div class="row mt-3">
+                    <button type="button" (click)="onLoggedin()" class="btn btn-success btn-block">Connexion</button>
+                </div>
+            </form>
+        </div>
+    </div> -->
+
+      <!-- Sign In Modal-->
+      <div  tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered p-2 my-0 mx-auto" style="max-width: 950px;">
+          <div class="modal-content">
+            <div class="modal-body px-0 py-2 py-sm-0">
+            
+              <div class="row mx-0 align-items-center">
+                <div class="col-md-6 border-end-md ">
+                  <h2 class="h3 mb-4 mb-sm-5">Hey there!<br>Welcome HG JOBs!</h2><img class="d-block mx-auto" src="assets/log.png" width="244" alt="Illustartion">
+                  <div class="mt-4 mt-sm-5">Don't have an account? <a routerLink="/inscrire" data-bs-toggle="modal" data-bs-dismiss="modal">Sign up here</a></div>
+                </div>
+                <div class="col-md-6 px-4 pt-2 pb-4 px-sm-5 pb-sm-5 pt-md-5">
+                    <div class="alert alert-danger" *ngIf="err==1">
+                        <strong>wrong login or password ..</strong>
+                    </div>
+                  <form class="needs-validation" novalidate>
+                    <div class="mb-4">
+                      <label class="form-label mb-2" for="signin-email">Username</label>
+                      <input class="form-control" type="text" name="username" [(ngModel)]="user.username" placeholder="Enter your username" required>
+                    </div>
+                    <div class="mb-4">
+                      <div class="d-flex align-items-center justify-content-between mb-2">
+                        <label class="form-label mb-0"  for="signin-password">Password</label><a class="fs-sm" href="#">Forgot password?</a>
+                      </div>
+                      <div class="password-toggle">
+                        <input class="form-control" type="{{passwordVisible ? 'text' : 'password'}}"  [(ngModel)]="user.password" name="password" placeholder="Enter password" required>
+                        <label class="password-toggle-btn" aria-label="Show/hide password">
+                          <input class="password-toggle-check" type="checkbox" (click)="togglePasswordVisibility()"><span class="password-toggle-indicator"></span>
+                        </label>
+                      </div>
+                    </div>
+                    <button class="btn btn-primary btn-lg w-100 rounded-pill" type="button"  (click)="onLoggedin()">Sign in</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+     
+
+</div>

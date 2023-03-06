@@ -1,0 +1,92 @@
+mat-chip-list {
+background-color: #f2f2f2;
+border: 1px solid #333;
+}
+mat-chip {
+    background-color: #ffc107;
+    color: white;
+    border: 1px solid #333;
+    border-radius: 30px;
+}
+
+mat-chip:hover {
+    background-color: #333;
+    color: white;
+}
+
+.mat-chip-label {
+    color: #333;
+    font-size: 16px;
+}
+
+.cancel-btn {
+    color: red;
+    
+    cursor: pointer;
+   
+    font-size: 13px;
+    
+}
+
+.selected-chip {
+    background-color: #333;
+    color: white;
+}
+
+.custom-input {
+    
+    border: 2px solid #ffc107;
+    padding: 8px;
+    border-radius: 5px;
+}
+/* .custom-chips .custom-input {
+    border: none;
+    padding: 4px 8px;
+    font-size: 14px;
+    width: 100%;
+    outline: none;
+    margin-top: 8px;
+} */
+
+
+/* .custom-chips .mat-chip {
+    background-color: #f1f1f1;
+    color: #333;
+    padding: 4px 8px;
+    border-radius: 16px;
+    font-size: 14px;
+    margin: 4px;
+}
+
+.custom-chips .mat-chip.selected-chip {
+    background-color: #3f51b5;
+    color: white;
+}
+
+.custom-chips .mat-chip .mat-icon {
+    color: white;
+    font-size: 14px;
+    margin-right: 4px;
+}
+
+.custom-chips .mat-form-field-infix {
+    padding: 0;
+}
+
+.custom-chips .mat-form-field-prefix .mat-chip-list-wrapper {
+    margin-top: -8px;
+}
+
+.custom-chips .mat-form-field-flex {
+    display: flex;
+    align-items: center;
+}
+
+.custom-chips .custom-input {
+    border: none;
+    padding: 4px 8px;
+    font-size: 14px;
+    width: 100%;
+    outline: none;
+    margin-top: 8px;
+} */
